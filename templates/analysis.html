@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    <style>
+        /* General Styles */
+        body {
+            font-family: "Poppins", sans-serif;
+            background: url("{{ url_for('static', filename='images/analysis.png') }}") no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            width: 75%;
+            max-width: 1100px;
+            background: rgba(41, 41, 70, 0.85);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 12px rgba(0, 255, 170, 0.4);
+            color: white;
+        }
+        .left-section, .right-section {
+            width: 48%;
+            padding: 15px;
+        }
+        .left-section {
+            border-right: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Prediction Section */
+        h2 {
+            text-align: center;
+            color: #00ff99;
+        }
+        .prediction {
+            font-size: 20px;
+            font-weight: bold;
+            color: #00ff99;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .image-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        .image-container img {
+            width: 65%;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 255, 170, 0.4);
+        }
+
+        /* Chatbot Section */
+        .chatbot-container {
+            height: 200px;  /* Smaller height */
+            width: 100%;    /* Adjust width */
+            overflow-y: auto;
+            border: 2px solid rgba(0, 255, 170, 0.5);
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.7); /* Black with transparency */
+            color: white;
+        }
+        input[type="text"] {
+            width: calc(100% - 75px);
+            padding: 10px;
+            margin-top: 10px;
+            border: 2px solid #00ff99;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        button {
+            background: #00ff99;
+            color: black;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #009966;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Left Section: Prediction & Image -->
+        <div class="left-section">
+            <h2>🌿 Prediction Result</h2>
+            <p class="prediction">🌱 Disease: {{ disease }}</p>
+            <p class="prediction">🔍 Confidence: {{ confidence }}%</p>
+            <div class="image-container">
+                <img src="{{ image_url }}" alt="Uploaded Image">
+            </div>
+        </div>
+
+        <!-- Right Section: AI Chatbot -->
+        <div class="right-section">
+            <h2>🤖 AI Chatbot</h2>
+            <div class="chatbot-container" id="chatbot-response">
+                <p><strong>Welcome!</strong> Ask me about your plant disease.</p>
+            </div>
+            <input type="text" id="chatbot-input" placeholder="Type your question...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Chatbot Functionality
+        function sendMessage() {
+            let input = document.getElementById("chatbot-input").value;
+            let responseBox = document.getElementById("chatbot-response");
+
+            if (input.trim() === "") return;
+
+            responseBox.innerHTML += `<p><strong>You:</strong> ${input}</p>`;
+            document.getElementById("chatbot-input").value = "";
+
+            fetch("/chatbot", {
+                method: "POST",
+                body: new URLSearchParams({ message: input }),
+                headers: { "Content-Type": "application/x-www-form-urlencoded" }
+            })
+            .then(response => response.json())
+            .then(data => {
+                let formattedReply = data.reply.replace(/\*/g, "<strong>").replace(/-/g, "<br>• ");
+                responseBox.innerHTML += `<p><strong>AI:</strong> ${formattedReply}</p>`;
+                responseBox.scrollTop = responseBox.scrollHeight;
+            })
+            .catch(() => responseBox.innerHTML += `<p><strong>AI:</strong> Sorry, an error occurred.</p>`);
+        }
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+

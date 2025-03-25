@@ -1,0 +1,138 @@
+/* General Page Styling */
+body.result-page {
+    background: url('../images/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Arial', sans-serif;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main Container */
+.result-container {
+    max-width: 90%;
+    margin: 50px auto;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    border-radius: 15px;
+}
+
+/* Title */
+.title {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #00ff99;
+    text-shadow: 2px 2px 5px black;
+}
+
+/* Result Content Layout */
+.result-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Left Section */
+.result-left {
+    flex: 1;
+    text-align: center;
+    padding: 20px;
+}
+
+.leaf-image {
+    width: 250px;
+    border-radius: 10px;
+    border: 3px solid #00ff99;
+    box-shadow: 0px 0px 10px #00ff99;
+}
+
+.prediction, .confidence {
+    font-size: 1.5em;
+    margin-top: 10px;
+}
+
+.prediction span, .confidence span {
+    font-weight: bold;
+    color: #00ff99;
+}
+
+/* Right Section */
+.result-right {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Treatment Box */
+.treatment-box {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.treatment-box h2 {
+    color: #00ff99;
+}
+
+/* AI Chatbot */
+.chatbot-box {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.chatbot-container {
+    padding: 10px;
+}
+
+#chat-input {
+    width: 80%;
+    padding: 8px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 5px;
+}
+
+button {
+    padding: 8px 12px;
+    background-color: #00ff99;
+    border: none;
+    border-radius: 5px;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #009966;
+}
+
+/* Star Rating */
+.rating-box {
+    margin-top: 20px;
+}
+
+.stars {
+    font-size: 2em;
+    color: gold;
+    cursor: pointer;
+}
+
+.feedback-btn {
+    margin-top: 10px;
+    background: gold;
+    color: black;
+    font-size: 1em;
+    padding: 8px 12px;
+    border-radius: 5px;
+}
+
+.feedback-btn:hover {
+    background: orange;
+}
+
+
+
+
